@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
   ci: {
     collect: {
@@ -6,8 +8,8 @@ module.exports = {
     upload: {
       target: 'temporary-public-storage',
     },
-    assert: {
-      preset: 'lighthouse:recommended',
-    },
+    // assert: {
+    //   preset: 'lighthouse:recommended',
+    // },
   },
 };
