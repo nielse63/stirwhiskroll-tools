@@ -35,15 +35,11 @@ const main = (feedUrl) => {
   });
 
   const logpath = path.resolve(__dirname, '../reports/feedparser.json');
-  fs.ensureFileSync(logpath);
-  const content = fs.readJSONSync(logpath, 'utf8') || [];
-  const log = [
-    ...content,
-    {
-      date: new Date(),
-      uncategorized: [],
-    },
-  ];
+  if (!fs.existsSync(logpath)) {
+    fs.writeJSONSync(logpath, [], { spaces: 2 });
+  }
+  const content = fs.readJSONSync(logpath, 'utf8');
+  const log = [...content];
 
   feedparser.on('readable', function readable() {
     // This is where the action is!
@@ -55,7 +51,8 @@ const main = (feedUrl) => {
     // eslint-disable-next-line
     while ((item = stream.read())) {
       if (item.categories.includes('Uncategorized')) {
-        log.uncategorized.push({
+        log.push({
+          error: 'uncategorized',
           title: item.title,
           link: item.link,
         });

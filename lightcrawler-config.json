@@ -1,0 +1,10 @@
+{
+  "extends": "lighthouse:default",
+  "settings": {
+    "crawler": {
+      "maxDepth": 1,
+      "maxChromeInstances": 5
+    },
+    "onlyCategories": ["accessibility", "performance", "best-practices"]
+  }
+}
